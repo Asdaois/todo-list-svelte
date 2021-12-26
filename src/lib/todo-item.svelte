@@ -1,3 +1,7 @@
+<script lang="ts">
+	export let todo: Todo;
+</script>
+
 <div class="todo">
 	<form class="done" action="" method="">
 		<input type="hidden" name="done" value="" />
@@ -5,7 +9,7 @@
 	</form>
 
 	<form class="text" action="" method="">
-		<input type="text" name="" />
+		<input type="text" name="" value={todo.text} />
 		<button class="save" aria-label="save todo" />
 	</form>
 
@@ -79,7 +83,7 @@
 		transition: opacity 0.2s;
 		opacity: 1;
 	}
-  /* TODO: Uncomment whet the API endpoinsts are available 
+	/* TODO: Uncomment whet the API endpoinsts are available 
 	.done {
 		transform: none;
 		opacity: 0.4;
