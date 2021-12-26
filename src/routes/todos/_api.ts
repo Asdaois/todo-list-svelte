@@ -1,6 +1,6 @@
 import type { Request } from '@sveltejs/kit';
 
-// TODO: Persist in database
+// TODO: add a database?
 let todos: Array<Todo> = [];
 
 export const api = (request: Request, data?: Record<string, unknown>) => {
@@ -27,7 +27,11 @@ export const api = (request: Request, data?: Record<string, unknown>) => {
 		case 'PATCH':
 			todos = todos.map((todo) => {
 				if (todo.uid === request.params.uid) {
-					todo.text = data.text as string;
+					todo.text = data.text ? data.text as string : todo.text;
+					if (data.done) {
+						todo.done = !todo.done;
+					}
+					console.log({ data, todo });
 				}
 				return todo;
 			});
