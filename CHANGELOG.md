@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.4](https://github.com/Asdaois/full-stack-web-dev-svelte-postgress/compare/v0.0.3...v0.0.4) (2021-12-27)
+
+
+### Features
+
+* Add patch endpoint update text ([67c819b](https://github.com/Asdaois/full-stack-web-dev-svelte-postgress/commit/67c819b758f76548dea189d6dfab764f2be87c92))
+* **forms:** enhance ([cd06b7e](https://github.com/Asdaois/full-stack-web-dev-svelte-postgress/commit/cd06b7e4236f5d2eb4b3d2c69486da1b7f2959d8))
+
 ### [0.0.3](https://github.com/Asdaois/full-stack-web-dev-svelte-postgress/compare/v0.0.2...v0.0.3) (2021-12-26)
 
 
