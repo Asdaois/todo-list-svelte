@@ -20,11 +20,24 @@
 
 <script lang="ts">
 	import TodoItem from '$lib/todo-item.svelte';
-import { each } from 'svelte/internal';
+	import { each } from 'svelte/internal';
+	import { enhance } from '$lib/actions/form';
 
 	export let todos: Array<Todo>;
 
 	const title = 'Todo';
+
+	const processNewTodoResult = async (res: Response, form: HTMLFormElement) => {
+		const newTodo = await res.json();
+		todos = [...todos, newTodo];
+
+		form.reset();
+	};
+
+	const processUpdateTodoResult = async (res: Response) => {
+		const updatedTodo = await res.json();
+		todos = todos.map((todo) => (todo.uid === updatedTodo.uid ? updatedTodo : todo));
+	};
 </script>
 
 <svelte:head>
@@ -34,12 +47,23 @@ import { each } from 'svelte/internal';
 <div class="todos">
 	<h1>{title}</h1>
 
-	<form class="new" action="/todos.json" method="post">
+	<form
+		class="new"
+		action="/todos.json"
+		method="post"
+		use:enhance={{ result: processNewTodoResult }}
+	>
 		<input type="text" name="text" aria-label="Add a todo" placeholder="+ type to add a todo" />
 	</form>
 
 	{#each todos as todo}
-		<TodoItem todo={todo}/>
+		<TodoItem
+			{todo}
+			processDeleteOnTodoResult={() => {
+				todos = todos.filter((currentTodo) => todo.uid !== currentTodo.uid);
+			}}
+			{processUpdateTodoResult}
+		/>
 	{/each}
 </div>
 
