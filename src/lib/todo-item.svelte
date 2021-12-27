@@ -1,19 +1,36 @@
 <script lang="ts">
+	import { enhance } from '$lib/actions/form';
+
 	export let todo: Todo;
+	export let processDeleteOnTodoResult: (res: Response) => void;
+	export let processUpdateTodoResult: (res: Response) => void;
 </script>
 
 <div class="todo" class:done={todo.done}>
-	<form action="/todos/{todo.uid}.json?_method=patch" method="post">
+	<form
+		action="/todos/{todo.uid}.json?_method=patch"
+		method="post"
+		use:enhance={{ result: processUpdateTodoResult }}
+	>
 		<input type="hidden" name="done" value={todo.done ? 'false' : 'true'} />
 		<button class="toggle" aria-label="mark todo as {todo.done ? 'not done' : 'done'}" />
 	</form>
 
-	<form class="text" action="/todos/{todo.uid}.json?_method=patch" method="post">
+	<form
+		class="text"
+		action="/todos/{todo.uid}.json?_method=patch"
+		method="post"
+		use:enhance={{ result: processUpdateTodoResult }}
+	>
 		<input type="text" name="text" value={todo.text} />
 		<button class="save" aria-label="save todo" />
 	</form>
 
-	<form action="/todos/{todo.uid}.json?_method=delete" method="post">
+	<form
+		action="/todos/{todo.uid}.json?_method=delete"
+		method="post"
+		use:enhance={{ result: processDeleteOnTodoResult }}
+	>
 		<button class="delete" aria-label="delete todo" />
 	</form>
 </div>
@@ -83,7 +100,7 @@
 		transition: opacity 0.2s;
 		opacity: 1;
 	}
-	
+
 	.done {
 		transform: none;
 		opacity: 0.4;
